@@ -16,7 +16,7 @@ module ArchivesSpace
     end
 
     def self.get_redundant_ts
-      (Time.now - 1.day).to_i
+      (Time.now - (60 * 60 * 24)).to_i
     end
 
     def self.schedule(schedule = nil)
