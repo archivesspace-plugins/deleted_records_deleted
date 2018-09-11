@@ -2,7 +2,7 @@ require_relative 'lib/deleted_records_deleted'
 
 ArchivesSpaceService.loaded_hook do
   ArchivesSpaceService.settings.scheduler.cron(
-    ArchivesSpace::DeletedRecordsDeleter.SCHEDULE,
+    ArchivesSpace::DeletedRecordsDeleter.schedule,
     :tags => 'deleted_records_deleted'
   ) do
     Log.info("Deleting (redundant) deleted records")
