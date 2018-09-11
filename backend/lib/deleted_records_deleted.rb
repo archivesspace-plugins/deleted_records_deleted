@@ -4,9 +4,11 @@ module ArchivesSpace
 
     SCHEDULE = "#{rand(0..59)} #{rand(0..6)} * * *".freeze
 
-    def self.delete(since: nil)
+    # fyi: timestamp is a misnomer, it's a date
+    def self.delete(before: nil)
       deleted_count = 0
-      redundant_ts  = since ? since : get_redundant_ts
+      redundant_ts  = before ? before : get_redundant_ts
+      Log.info "Using redundant ts: #{redundant_ts}"
       DB.open do |db|
         redundant     = db[:deleted_records].where{ timestamp < redundant_ts }
         deleted_count = redundant.count
@@ -16,7 +18,7 @@ module ArchivesSpace
     end
 
     def self.get_redundant_ts
-      (Time.now - (60 * 60 * 24)).to_i
+      (Time.now - (60 * 60 * 24))
     end
 
     def self.schedule(cron: nil)
