@@ -19,8 +19,8 @@ module ArchivesSpace
       (Time.now - 1.day).to_i
     end
 
-    def self.schedule
-      SCHEDULE
+    def self.schedule(schedule = nil)
+      schedule ? schedule : SCHEDULE
     end
 
   end
